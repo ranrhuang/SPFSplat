@@ -1,0 +1,43 @@
+# @package _global_
+
+defaults:
+  - /dataset@_group_.re10k: dl3dv
+  # - dataset: re10k
+  # - /dataset@_group_.re10k: re10k
+  # - optional dataset/re10k/view_sampler_dataset_specific_config: ${dataset/view_sampler}_${dataset}
+  # - override dataset/re10k/view_sampler: all
+
+# dataset:
+#   re10k:
+#     view_sampler: all
+
+data_loader:
+  train:
+    num_workers: 0
+    persistent_workers: true
+    batch_size: 1
+    seed: 1234
+  test:
+    num_workers: 8
+    persistent_workers: false
+    batch_size: 1
+    seed: 2345
+  val:
+    num_workers: 0
+    persistent_workers: true
+    batch_size: 1
+    seed: 3456
+
+index_generator:
+  num_target_views: 3
+  min_overlap: 0.6
+  max_overlap: 1.0
+  # min_distance: 45
+  # max_distance: 135
+  min_distance: 15
+  max_distance: 45
+  output_path: assets/dl3dv
+  save_previews: false
+  seed: 123
+
+seed: 456

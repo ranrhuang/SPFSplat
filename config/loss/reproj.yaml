@@ -1,0 +1,5 @@
+reproj:
+  weight: 0.0
+  mode: "dyntanh"
+  circle_schedule: true
+  total_iterations: 200_001

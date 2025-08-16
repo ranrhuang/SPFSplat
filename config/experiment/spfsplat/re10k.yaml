@@ -1,0 +1,70 @@
+# @package _global_
+
+defaults:
+  - /dataset@_group_.re10k: re10k
+  - override /model/encoder: spfsplat
+  - override /model/encoder/backbone: croco_multi
+  - override /model/decoder: splatting_cuda
+  - override /loss: [mse, lpips, reproj]
+
+wandb:
+  name: re10k
+  tags: [re10k, 256x256]
+  project: spfsplat
+  
+
+loss:
+  reproj:
+    weight: 0.001
+    mode: "dyntanh"
+    total_iterations: 400_001
+
+model:
+  encoder:
+    backbone:
+      name: croco_multi
+      intrinsics_embed_loc: encoder
+      intrinsics_embed_type: token
+
+    pretrained_weights: './pretrained_weights/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth'
+
+
+dataset:
+  re10k:
+    make_baseline_1: true
+    view_sampler:
+      warm_up_steps: 200_000
+      num_target_views: 1
+      num_context_views: 2
+      max_distance_between_context_views: 150
+
+optimizer:
+  lr: 1e-4
+  warm_up_steps: 2000
+  backbone_lr_multiplier: 0.1
+  min_lr_multiplier: 0.01
+
+data_loader:
+  train:
+    batch_size: 12
+
+trainer:
+  max_steps: 400_001
+  val_check_interval: 10000
+
+checkpointing:
+  every_n_train_steps: 10000
+  save_weights_only: false
+  save_top_k: -1
+
+
+train:
+  training_context: false
+
+test:
+  output_path: outputs/test/spfsplat
+  align_pose: false
+  compute_scores: true
+  save_image: true
+  save_video: false
+  save_compare: false
