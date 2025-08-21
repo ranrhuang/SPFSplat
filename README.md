@@ -78,12 +78,13 @@ cd ../../../../../..
 ## Pre-trained Checkpoints
 Our models are hosted on [Hugging Face](https://huggingface.co/RanranHuang/SPFSplat) 🤗
 
-|                                                    Model name                                                    | Training resolutions | Training data |
-|:----------------------------------------------------------------------------------------------------------------:|:--------------------:|:-------------:|
-|                 [re10k.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k.ckpt)                  |        256x256       |     re10k     |
-|                  [acid.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/acid.ckpt )                  |        256x256       |     acid      |
-|         [re10k_dl3dv.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k_dl3dv.ckpt )         |        256x256       | re10k, dl3dv  |
-|         [re10k_10view.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k_10view.ckpt)         |        256x256       | re10k |
+|                                                    Model name                                                    | Training resolutions | Training data | Training settings |
+|:----------------------------------------------------------------------------------------------------------------:|:--------------------:|:-------------:|:-------------:|
+|                 [re10k.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k.ckpt)                  |        256x256       |     re10k     | RE10K, 2 views |
+|                  [acid.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/acid.ckpt )                  |        256x256       |     acid      | ACID, 2 views |
+|         [re10k_dl3dv.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k_dl3dv.ckpt )         |        256x256       | re10k, dl3dv  | RE10K + DL3DV, 2 views |
+|         [re10k_10view.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k_10view.ckpt)         |        256x256       | re10k | RE10K, 10 views |
+|         [re10k_nointrin.ckpt]( https://huggingface.co/RanranHuang/SPFSplat/resolve/main/re10k_nointrin.ckpt)         |        256x256       | re10k | RE10K, w/o intrin embed., 2 views |
 
 We assume the downloaded weights are located in the `pretrained_weights` directory.
 
@@ -104,6 +105,9 @@ python -m src.main +experiment=spfsplat/re10k wandb.mode=online wandb.name=re10k
 
 # For multi-view training, we suggest fine-tuning from the released model. Here we use 3 view as an example. Remember to adjust the batch size according to your available GPU memory. 
 python -m src.main +experiment=spfsplat/re10k_3view wandb.mode=online wandb.name=re10k_3view checkpointing.load=./pretrained_weights/re10k.ckpt checkpointing.resume=false 
+
+# To inference without known intrinsics, training models with model.encoder.backbone.intrinsics_embed_loc='none'
+python -m src.main +experiment=spfsplat/re10k wandb.mode=online wandb.name=re10k_nointrin model.encoder.backbone.intrinsics_embed_loc='none'
 
 ```
 
@@ -131,6 +135,16 @@ python -m src.main +experiment=spfsplat/re10k  mode=test wandb.name=re10k_10view
     dataset.re10k.view_sampler.num_context_views=10 \
     checkpointing.load=./pretrained_weights/re10k_10view.ckpt
     test.save_image=false test.align_pose=false 
+
+# RealEstate10K, evaluate on images without known intrinsics 
+python -m src.main +experiment=spfsplat/re10k mode=test wandb.name=re10k \
+    dataset/view_sampler@dataset.re10k.view_sampler=evaluation \
+    dataset.re10k.view_sampler.index_path=assets/evaluation_index_re10k.json \
+    checkpointing.load=./pretrained_weights/re10k_nointrin.ckpt \
+    model.encoder.backbone.intrinsics_embed_loc='none' \
+    model.encoder.estimating_focal=true \
+    test.save_image=true test.align_pose=false
+
     
 ```
 
