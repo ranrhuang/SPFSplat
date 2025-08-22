@@ -145,6 +145,14 @@ python -m src.main +experiment=spfsplat/re10k mode=test wandb.name=re10k \
     model.encoder.estimating_focal=true \
     test.save_image=true test.align_pose=false
 
+# Evaluate on in-the-wild images, export .ply files, and render videos.  
+# If camera intrinsics are available, please provide them in the code and use other checkpoints
+python -m src.paper.validate_in_the_wild +experiment=spfsplat/re10k  wandb.name=re10k_iphone  \
+  model.encoder.backbone.intrinsics_embed_loc='none' \
+  model.encoder.estimating_focal=true \
+  mode="test"  \
+  checkpointing.load=models/re10k_nointrin.ckpt 
+
     
 ```
 
