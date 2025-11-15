@@ -65,7 +65,7 @@ cd SPFSplat
 2. Create the environment, here we show an example using conda.
 ```bash
 conda create -n spfsplat python=3.11
-conda activate spfpslat
+conda activate spfsplat
 conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
 pip install -r requirements.txt
 ```
