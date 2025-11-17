@@ -22,7 +22,7 @@
 
 <br>
 
-Make sure to also check our other work: [SPFSplatV2](https://ranrhuang.github.io/spfsplatv2/), which enhances SPFSplat with improved performance and training efficiency, and further extends it for VGGT!
+🚀 Make sure to also check our following work: [SPFSplatV2](https://github.com/ranrhuang/SPFSplatV2), which enhances SPFSplat with improved performance and training efficiency, and further extends it for VGGT! 
 
 
 
@@ -58,14 +58,14 @@ Make sure to also check our other work: [SPFSplatV2](https://ranrhuang.github.io
 
 1. Clone SPFSplat.
 ```bash
-git clone https://github.com/ranrhuang/SPFSplat
+git clone git@github.com:ranrhuang/SPFSplat.git
 cd SPFSplat
 ```
 
 2. Create the environment, here we show an example using conda.
 ```bash
 conda create -n spfsplat python=3.11
-conda activate spfpslat
+conda activate spfsplat
 conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
 pip install -r requirements.txt
 ```
