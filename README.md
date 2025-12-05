@@ -22,7 +22,7 @@
 
 <br>
 
-🚀 Make sure to also check our following work: [SPFSplatV2](https://github.com/ranrhuang/SPFSplatV2), which enhances SPFSplat with improved performance and training efficiency, and further extends it for VGGT! 
+
 
 
 
@@ -30,6 +30,9 @@
 <details open="open" style='padding: 10px; border-radius:5px 30px 30px 5px; border-style: solid; border-width: 1px;'>
   <summary>Table of Contents</summary>
   <ol>
+   <li>
+      <a href="#News">News</a>
+    </li>
     <li>
       <a href="#installation">Installation</a>
     </li>
@@ -53,6 +56,13 @@
     </li>
 </ol>
 </details>
+
+## 📰 News
+- [x] **(Oct 2025)** 🚀 We released the code for **[SPFSplatV2](https://github.com/ranrhuang/SPFSplatV2)**, highly recommend checking it out!
+- [x] **(Sep 2025)** Our **[SPFSplatV2](https://ranrhuang.github.io/spfsplatv2/)** paper is now available on arXiv. It enhances SPFSplat with improved performance and training efficiency, and further extends it for VGGT.
+- [x] **(Aug 2025)** We released the code for **SPFSplat**.
+- [x] **(Jun 2025)** Our **SPFSplat** is accepted by ICCV as Highlight!
+
 
 ## Installation
 
